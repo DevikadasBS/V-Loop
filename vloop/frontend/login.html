@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | V-Loop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .bg-vloop-ink {
+        background-color: #0b1314;
+      }
+      .bg-vloop-deep {
+        background-color: #355245;
+      }
+      .bg-vloop-stone {
+        background-color: #e3e5db;
+      }
+      .bg-vloop-ivory {
+        background-color: #f4f1e8;
+      }
+      .border-vloop-mist {
+        border-color: #afc1b6;
+      }
+      .text-vloop-deep {
+        color: #355245;
+      }
+      .text-vloop-ink {
+        color: #0b1314;
+      }
+    </style>
+  </head>
+  <body
+    class="min-h-screen px-4 py-10 bg-vloop-stone"
+    style="
+      background-image: linear-gradient(
+        180deg,
+        rgba(11, 19, 20, 0.08),
+        rgba(11, 19, 20, 0.22)
+      );
+    "
+  >
+    <div
+      class="max-w-5xl mx-auto grid lg:grid-cols-[0.95fr_1.05fr] gap-8 items-stretch"
+    >
+      <section
+        class="hidden lg:flex rounded-[2rem] p-10 text-[#F4F1E8] bg-vloop-ink shadow-2xl flex-col justify-between"
+      >
+        <div>
+          <a
+            href="index.html"
+            class="inline-flex items-center gap-2 text-sm text-[#AFC1B6] hover:text-white transition"
+          >
+            <span>&larr;</span> Back to Home
+          </a>
+          <h1 class="text-5xl font-extrabold mt-8 leading-tight">
+            Welcome back to your campus marketplace.
+          </h1>
+          <p class="mt-5 text-[#AFC1B6] leading-7">
+            Log in with your college email to open listings, reply to chats, and
+            keep campus resources moving.
+          </p>
+        </div>
+        <div class="space-y-4">
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+            <p class="font-semibold">Student-only access</p>
+            <p class="text-sm text-[#AFC1B6] mt-2">
+              Restricted to Vidya Academy accounts for a cleaner and safer
+              exchange space.
+            </p>
+          </div>
+          <div class="rounded-2xl bg-white/5 border border-white/10 p-5">
+            <p class="font-semibold">Built-in messaging</p>
+            <p class="text-sm text-[#AFC1B6] mt-2">
+              Coordinate directly with buyers and sellers without leaving the
+              platform.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="bg-vloop-ivory border border-vloop-mist rounded-[2rem] shadow-2xl p-8 sm:p-10"
+      >
+        <a
+          href="index.html"
+          class="lg:hidden text-vloop-deep text-sm inline-flex items-center gap-2 transition hover:-translate-x-1 mb-8 font-semibold"
+        >
+          <span>&larr;</span> Back to Home
+        </a>
+
+        <div id="login-form">
+          <h2 class="text-3xl font-bold mb-2 text-vloop-ink">
+            Welcome to V-Loop
+          </h2>
+          <p class="text-gray-500 mb-8">Login to your campus marketplace</p>
+
+          <form id="login-form-element" class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1"
+                >College Email</label
+              >
+              <input
+                id="email"
+                type="email"
+                placeholder="t123btcs0036@vidyaacademy.ac.in"
+                autocomplete="email"
+                class="border border-vloop-mist p-3 w-full rounded-xl bg-white focus:ring-2 focus:ring-[#AFC1B6] focus:outline-none transition"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1"
+                >Password</label
+              >
+              <input
+                id="password"
+                type="password"
+                placeholder="********"
+                autocomplete="current-password"
+                class="border border-vloop-mist p-3 w-full rounded-xl bg-white focus:ring-2 focus:ring-[#AFC1B6] focus:outline-none transition"
+              />
+            </div>
+
+            <button
+              type="submit"
+              id="login-btn"
+              class="bg-vloop-ink text-white w-full p-3 rounded-xl mt-8 font-bold hover:bg-vloop-deep transition shadow-lg relative"
+            >
+              <span id="login-text">Login</span>
+              <div
+                id="login-loader"
+                class="hidden absolute inset-0 flex items-center justify-center"
+              >
+                <svg
+                  class="animate-spin h-5 w-5 text-white"
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                >
+                  <circle
+                    class="opacity-25"
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    stroke="currentColor"
+                    stroke-width="4"
+                  ></circle>
+                  <path
+                    class="opacity-75"
+                    fill="currentColor"
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+              </div>
+            </button>
+          </form>
+
+          <div class="mt-6 text-center text-sm">
+            <p class="text-gray-600">
+              Don't have an account?
+              <button
+                type="button"
+                onclick="toggleAuth()"
+                class="text-vloop-deep font-bold hover:underline"
+              >
+                Sign up
+              </button>
+            </p>
+            <p class="mt-2">
+              <button
+                type="button"
+                onclick="showForgotModal()"
+                class="text-gray-400 hover:text-vloop-deep"
+              >
+                Forgot Password?
+              </button>
+            </p>
+          </div>
+        </div>
+
+        <div id="security-question-form" class="hidden">
+          <h2 class="text-3xl font-bold mb-2 text-vloop-ink">Security Check</h2>
+          <p id="security-question-description" class="text-gray-500 mb-4">
+            Answer your security question to complete login.
+          </p>
+          <div class="rounded-2xl border border-vloop-mist bg-white p-4 mb-6">
+            <p
+              class="text-xs font-semibold uppercase tracking-[0.2em] text-gray-400 mb-2"
+            >
+              Security Question
+            </p>
+            <p id="security-question-text" class="text-vloop-ink font-semibold">
+              Loading question...
+            </p>
+          </div>
+
+          <form id="security-question-form-element" class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1"
+                >Security Answer</label
+              >
+              <input
+                id="security-answer"
+                type="password"
+                placeholder="Enter your answer"
+                class="border border-vloop-mist p-3 w-full rounded-xl bg-white focus:ring-2 focus:ring-[#AFC1B6] focus:outline-none transition"
+              />
+            </div>
+
+            <button
+              id="security-question-btn"
+              type="submit"
+              class="bg-vloop-ink text-white w-full p-3 rounded-xl mt-8 font-bold hover:bg-vloop-deep transition shadow-lg disabled:opacity-60 disabled:cursor-not-allowed"
+            >
+              <span id="security-question-btn-text">Verify Answer</span>
+            </button>
+          </form>
+
+          <div class="mt-6 text-center text-sm">
+            <p>
+              <button
+                type="button"
+                onclick="backToLoginFromSecurityQuestion()"
+                class="text-vloop-deep font-bold hover:underline"
+              >
+                Back to login
+              </button>
+            </p>
+          </div>
+        </div>
+
+        <div id="signup-form" class="hidden">
+          <h2 class="text-3xl font-bold mb-2 text-vloop-ink">Create Account</h2>
+          <p class="text-gray-500 mb-8">Join the V-Loop community</p>
+
+          <form id="signup-form-element" class="space-y-4">
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1"
+                >College Email</label
+              >
+              <input
+                id="signup-email"
+                type="email"
+                placeholder="email@vidyaacademy.ac.in"
+                autocomplete="email"
+                class="border border-vloop-mist p-3 w-full rounded-xl bg-white focus:ring-2 focus:ring-[#AFC1B6] focus:outline-none transition"
+              />
+            </div>
+            <div>
+              <label class="block text-sm font-semibold text-gray-700 mb-1"
+                >Create Password</label
+              >
+              <input
+                id="signup-password"
+                type="password"
+                placeholder="********"
+                autocomplete="new-password"
+                class="border border-vloop-mist p-3 w-full rounded-xl bg-white focus:ring-2 focus:ring-[#AFC1B6] focus:outline-none transition"
+              />
+            </div>
+
+            <button
+              type="submit"
+              id="signup-btn"
+              class="bg-vloop-ink text-white w-full p-3 rounded-xl mt-8 font-bold hover:bg-vloop-deep transition shadow-lg relative"
+            >
+              <span id="signup-text">Create Account</span>
+            </button>
+          </form>
+
+          <div class="mt-6 text-center text-sm">
+            <p class="text-gray-600">
+              Already have an account?
+              <button
+                type="button"
+                onclick="toggleAuth()"
+                class="text-vloop-deep font-bold hover:underline"
+              >
+                Login
+              </button>
+            </p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div
+      id="forgot-modal"
+      class="hidden fixed inset-0 bg-black/50 flex items-center justify-center p-4"
+    >
+      <div
+        class="bg-vloop-ivory p-8 rounded-[1.75rem] shadow-2xl max-w-sm w-full border border-vloop-mist"
+      >
+        <h3 class="text-xl font-bold mb-2 text-vloop-ink">Reset Password</h3>
+        <p class="text-sm text-gray-500 mb-6">
+          Enter your email and we'll send you a link to reset your password.
+        </p>
+        <input
+          id="forgot-email"
+          type="email"
+          placeholder="Email"
+          class="border border-vloop-mist p-3 w-full rounded-xl mb-4 bg-white"
+        />
+        <div class="flex gap-3">
+          <button
+            type="button"
+            onclick="hideForgotModal()"
+            class="flex-1 p-3 rounded-xl border border-vloop-mist hover:bg-white transition"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onclick="forgotPassword()"
+            class="flex-1 p-3 rounded-xl bg-vloop-ink text-white hover:bg-vloop-deep transition"
+          >
+            Send Link
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+      function toggleAuth() {
+        document.getElementById("login-form").classList.toggle("hidden");
+        document.getElementById("signup-form").classList.toggle("hidden");
+        document
+          .getElementById("security-question-form")
+          .classList.add("hidden");
+        if (typeof resetSecurityQuestionState === "function")
+          resetSecurityQuestionState();
+      }
+      function showForgotModal() {
+        document.getElementById("forgot-modal").classList.remove("hidden");
+      }
+      function hideForgotModal() {
+        document.getElementById("forgot-modal").classList.add("hidden");
+      }
+      function backToLoginFromSecurityQuestion() {
+        document
+          .getElementById("security-question-form")
+          .classList.add("hidden");
+        document.getElementById("signup-form").classList.add("hidden");
+        document.getElementById("login-form").classList.remove("hidden");
+        if (typeof resetSecurityQuestionState === "function")
+          resetSecurityQuestionState();
+      }
+    </script>
+  </body>
+</html>

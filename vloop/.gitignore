@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.pytest_cache/
+
+# Local environments and editor files
+.env
+.venv/
+venv/
+backend/.venv/
+backend/venv/
+.vscode/
+backend/.vscode/
+
+# Node
+node_modules/
+
+# Runtime data
+backend/db.sqlite3
+backend/*.log
+backend/*.out.log
+backend/*.err.log
+frontend*.log
+
+# Uploaded media
+backend/media/**
+!backend/media/
+!backend/media/item_images/
+!backend/media/item_images/.gitkeep
+!backend/media/message_attachments/
+!backend/media/message_attachments/.gitkeep
+!backend/media/profile_pictures/
+!backend/media/profile_pictures/.gitkeep
+
+# Collected static files
+backend/staticfiles/

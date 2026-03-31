@@ -1,0 +1,1402 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Marketplace | V-Loop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      .bg-vloop-cream {
+        background-color: #e3e5db;
+      }
+      .bg-vloop-dark {
+        background-color: #1d2916;
+      }
+      .bg-vloop-deep {
+        background-color: #355245;
+      }
+      .bg-vloop-sage {
+        background-color: #afc1b6;
+      }
+      .bg-vloop-base {
+        background-color: #6a8374;
+      }
+      .border-vloop-sage {
+        border-color: #afc1b6;
+      }
+      .text-vloop-dark {
+        color: #1d2916;
+      }
+      .marketplace-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 24px;
+        align-items: stretch;
+      }
+      .marketplace-card {
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        height: 100%;
+        background: #ffffff;
+        border: 1px solid rgba(175, 193, 182, 0.5);
+        border-radius: 16px;
+        box-shadow: 0 14px 34px rgba(29, 41, 22, 0.08);
+        transition:
+          transform 0.24s ease,
+          box-shadow 0.24s ease,
+          border-color 0.24s ease;
+      }
+      .marketplace-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 22px 46px rgba(29, 41, 22, 0.12);
+        border-color: rgba(106, 131, 116, 0.45);
+      }
+      .marketplace-card-media {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 212px;
+        padding: 18px;
+        background: #f2f4ef;
+        border-bottom: 1px solid rgba(175, 193, 182, 0.32);
+        border-radius: 16px 16px 0 0;
+      }
+      .marketplace-card-image {
+        display: block;
+        width: 100%;
+        height: 176px;
+        object-fit: contain;
+        object-position: center;
+      }
+      .marketplace-card-price {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(29, 41, 22, 0.92);
+        color: #ffffff;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+        box-shadow: 0 10px 18px rgba(29, 41, 22, 0.14);
+      }
+      .marketplace-card-body {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        gap: 14px;
+        padding: 18px;
+      }
+      .marketplace-card-meta {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        min-width: 0;
+      }
+      .marketplace-card-type {
+        font-size: 0.69rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        color: #6a8374;
+        white-space: nowrap;
+      }
+      .marketplace-card-category {
+        display: inline-flex;
+        align-items: center;
+        min-width: 0;
+        padding: 6px 10px;
+        border-radius: 999px;
+        background: rgba(175, 193, 182, 0.22);
+        color: #355245;
+        font-size: 0.74rem;
+        font-weight: 600;
+        white-space: nowrap;
+      }
+      .marketplace-card-title {
+        margin: 0;
+        font-size: 1.15rem;
+        line-height: 1.35;
+        font-weight: 700;
+        color: #1d2916;
+      }
+      .marketplace-card-description {
+        margin: 0;
+        color: #69726c;
+        font-size: 0.93rem;
+        line-height: 1.6;
+        display: -webkit-box;
+        overflow: hidden;
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+      .marketplace-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        margin-top: auto;
+        padding-top: 14px;
+        border-top: 1px solid rgba(175, 193, 182, 0.28);
+      }
+      .marketplace-owner {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-width: 0;
+      }
+      .marketplace-owner-avatar,
+      .marketplace-owner-fallback {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 999px;
+      }
+      .marketplace-owner-avatar {
+        object-fit: cover;
+        border: 1px solid rgba(175, 193, 182, 0.52);
+      }
+      .marketplace-owner-fallback {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: #1d2916;
+        color: #ffffff;
+        font-size: 0.78rem;
+        font-weight: 700;
+      }
+      .marketplace-owner-copy {
+        min-width: 0;
+      }
+      .marketplace-owner-name {
+        margin: 0;
+        color: #1d2916;
+        font-size: 0.88rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .marketplace-owner-label {
+        margin: 2px 0 0;
+        color: #8a938d;
+        font-size: 0.74rem;
+      }
+      .marketplace-card-actions {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        flex-wrap: wrap;
+        flex-shrink: 0;
+      }
+      .marketplace-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        border: 1px solid rgba(175, 193, 182, 0.45);
+        background: transparent;
+        color: #355245;
+        font-size: 0.77rem;
+        font-weight: 600;
+        line-height: 1;
+        transition:
+          background-color 0.2s ease,
+          color 0.2s ease,
+          border-color 0.2s ease;
+      }
+      .marketplace-action:hover {
+        background: rgba(175, 193, 182, 0.15);
+        border-color: rgba(106, 131, 116, 0.52);
+      }
+      .marketplace-action-primary {
+        border-color: transparent;
+        background: #1d2916;
+        color: #ffffff;
+        box-shadow: 0 10px 18px rgba(29, 41, 22, 0.12);
+      }
+      .marketplace-action-primary:hover {
+        background: #355245;
+        color: #ffffff;
+      }
+      .marketplace-action-danger {
+        color: #b42318;
+        border-color: rgba(180, 35, 24, 0.18);
+      }
+      .marketplace-action-danger:hover {
+        background: rgba(180, 35, 24, 0.06);
+        border-color: rgba(180, 35, 24, 0.24);
+      }
+      .marketplace-card-status {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        border-radius: 999px;
+        background: rgba(175, 193, 182, 0.18);
+        color: #6a8374;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+      .chat-scrollbar::-webkit-scrollbar {
+        width: 8px;
+      }
+      .chat-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(53, 82, 69, 0.25);
+        border-radius: 999px;
+      }
+      .message-actions {
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+      .message-card:hover .message-actions {
+        opacity: 1;
+      }
+      .details-reset summary::-webkit-details-marker {
+        display: none;
+      }
+      .message-pop {
+        animation: message-pop 0.22s ease-out;
+      }
+      .status-dot {
+        box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.9);
+      }
+      @keyframes message-pop {
+        from {
+          opacity: 0;
+          transform: translateY(10px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+      @media (max-width: 640px) {
+        .marketplace-grid {
+          gap: 18px;
+        }
+        .marketplace-card-media {
+          min-height: 200px;
+          padding: 14px;
+        }
+        .marketplace-card-image {
+          height: 172px;
+        }
+        .marketplace-card-body {
+          padding: 16px;
+        }
+        .marketplace-card-footer {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+        .marketplace-card-actions {
+          width: 100%;
+          justify-content: flex-start;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-vloop-cream min-h-screen">
+    <nav
+      id="marketplace-nav"
+      class="flex justify-between items-center p-6 bg-white shadow-sm border-b border-vloop-sage sticky top-0 z-50 transition-opacity duration-200"
+    >
+      <h1
+        class="font-bold text-2xl text-vloop-dark cursor-pointer"
+        onclick="location.href = 'index.html'"
+      >
+        V-Loop
+      </h1>
+      <div class="flex items-center gap-4">
+        <a
+          id="marketplace-login-button"
+          href="login.html"
+          class="hidden bg-vloop-dark text-white px-4 py-2 rounded-lg hover:bg-vloop-deep transition shadow-md font-semibold"
+        >
+          Login
+        </a>
+        <button
+          id="profile-nav-button"
+          type="button"
+          onclick="openProfileModal()"
+          class="flex items-center gap-3 bg-white border border-vloop-sage text-vloop-dark px-4 py-2 rounded-lg hover:bg-vloop-sage/10 transition shadow-sm font-semibold"
+        >
+          <img
+            id="nav-avatar-image"
+            class="hidden h-9 w-9 rounded-full object-cover"
+            alt="Profile picture"
+          />
+          <div
+            id="nav-avatar-fallback"
+            class="h-9 w-9 rounded-full bg-vloop-dark text-white flex items-center justify-center text-sm font-bold"
+          >
+            V
+          </div>
+          <span class="hidden md:inline">Profile</span>
+        </button>
+        <button
+          id="chat-nav-button"
+          type="button"
+          onclick="toggleChatPanel(true)"
+          class="relative bg-white border border-vloop-sage text-vloop-dark px-4 py-2 rounded-lg hover:bg-vloop-sage/10 transition shadow-sm font-semibold"
+        >
+          <span>Chats</span>
+          <span
+            id="chat-nav-badge-dot"
+            class="hidden absolute -top-1 -right-1 h-3.5 w-3.5 rounded-full bg-red-500 ring-2 ring-white"
+          ></span>
+          <span
+            id="chat-nav-badge-count"
+            class="hidden absolute -top-2 -right-2 min-w-[22px] rounded-full bg-vloop-dark px-1.5 py-0.5 text-center text-[10px] font-bold leading-4 text-white shadow-md"
+            >0</span
+          >
+        </button>
+        <button
+          id="post-item-button"
+          type="button"
+          onclick="openModal()"
+          class="bg-vloop-dark text-white px-4 py-2 rounded-lg hover:bg-vloop-deep transition shadow-md font-semibold"
+        >
+          + Post Item
+        </button>
+      </div>
+    </nav>
+
+    <main
+      id="marketplace-main"
+      class="max-w-7xl mx-auto p-6 md:p-10 transition-opacity duration-200"
+    >
+      <div id="marketplace-layout" class="grid gap-8 xl:grid-cols-1">
+        <section
+          id="marketplace-content"
+          class="transition-opacity duration-200"
+        >
+          <div
+            id="marketplace-guest-banner"
+            class="hidden mb-8 rounded-3xl border border-vloop-sage/70 bg-white px-5 py-4 shadow-sm"
+          >
+            <p class="text-sm font-semibold text-vloop-dark">Guest Preview</p>
+            <p class="mt-1 text-sm text-gray-500">
+              Browse listings here. Log in to post items, chat with other
+              students, and manage your profile.
+            </p>
+          </div>
+          <div class="relative mb-8">
+            <input
+              id="search"
+              onkeyup="searchItems()"
+              placeholder="Search textbooks, lab coats, tools..."
+              class="border border-vloop-sage p-4 w-full rounded-2xl shadow-sm focus:ring-2 focus:ring-vloop-base focus:outline-none transition pl-12"
+            />
+            <div class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 mb-10">
+            <button
+              onclick="filterItems('all', event)"
+              class="filter-btn active px-6 py-2 bg-vloop-dark text-white rounded-full transition shadow-md"
+            >
+              All
+            </button>
+            <button
+              onclick="filterItems('Sell', event)"
+              class="filter-btn px-6 py-2 bg-white border border-vloop-sage rounded-full hover:bg-vloop-sage/10 transition"
+            >
+              Sell
+            </button>
+            <button
+              onclick="filterItems('Lend', event)"
+              class="filter-btn px-6 py-2 bg-white border border-vloop-sage rounded-full hover:bg-vloop-sage/10 transition"
+            >
+              Lend
+            </button>
+            <button
+              onclick="filterItems('Request', event)"
+              class="filter-btn px-6 py-2 bg-white border border-vloop-sage rounded-full hover:bg-vloop-sage/10 transition"
+            >
+              Request
+            </button>
+          </div>
+
+          <div id="items" class="marketplace-grid">
+            <div
+              class="flex flex-col items-center justify-center col-span-full py-20 opacity-50"
+            >
+              <div
+                class="animate-pulse bg-vloop-sage w-12 h-12 rounded-full mb-4"
+              ></div>
+              <p>Loading campus treasures...</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Existing chat panel layout preserved: conversation list on the left, active thread on the right -->
+        <aside
+          id="chat-section"
+          class="fixed inset-0 z-[700] flex h-screen w-screen translate-x-full flex-col overflow-hidden bg-[#EEF4EE] opacity-0 pointer-events-none transition-all duration-300 ease-out"
+        >
+          <div class="bg-vloop-dark text-white p-4 border-b border-white/10">
+            <div class="flex items-center justify-between gap-4">
+              <div>
+                <h2 class="text-2xl font-bold">Your Chats</h2>
+              </div>
+              <div class="flex items-center gap-3">
+                <button
+                  type="button"
+                  onclick="toggleChatPanel(false)"
+                  class="rounded-full border border-white/20 px-4 py-2 text-sm font-semibold text-white/85 hover:text-white hover:bg-white/10 transition"
+                >
+                  Back
+                </button>
+                <button
+                  type="button"
+                  onclick="toggleChatTheme()"
+                  class="rounded-full border border-white/20 px-3 py-2 text-xs font-semibold text-white/80 hover:text-white hover:bg-white/10 transition"
+                >
+                  Theme
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="grid md:grid-cols-[320px_minmax(0,1fr)] flex-1 min-h-0 h-full overflow-hidden"
+          >
+            <div
+              class="grid grid-rows-[auto_minmax(0,1fr)] border-r border-vloop-sage/70 bg-white/70 min-h-0 h-full overflow-hidden backdrop-blur-sm"
+            >
+              <div class="p-3 border-b border-vloop-sage/70 space-y-2">
+                <p
+                  class="text-xs font-semibold tracking-[0.25em] text-vloop-base uppercase"
+                >
+                  Conversations
+                </p>
+                <input
+                  id="conversation-search"
+                  type="text"
+                  placeholder="Search chats"
+                  class="w-full rounded-2xl border border-vloop-sage bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-vloop-base/20"
+                />
+              </div>
+              <div
+                id="conversation-list"
+                class="min-h-0 overflow-y-auto overscroll-contain chat-scrollbar"
+              >
+                <div class="p-4 text-sm text-gray-500">
+                  No conversations yet.
+                </div>
+              </div>
+            </div>
+
+            <div
+              id="chat-thread-shell"
+              class="grid grid-rows-[auto_minmax(0,1fr)] min-h-0 h-full overflow-hidden bg-[#F8FAF8]"
+            >
+              <div class="p-3 border-b border-vloop-sage/70 bg-white">
+                <div class="flex items-start justify-between gap-4">
+                  <div>
+                    <p
+                      class="text-xs uppercase tracking-[0.25em] text-vloop-base"
+                    >
+                      Active Chat
+                    </p>
+                    <div class="flex items-center gap-3 mt-1.5">
+                      <img
+                        id="chat-user-avatar-image"
+                        class="hidden h-11 w-11 rounded-full object-cover border border-vloop-sage/60"
+                        alt="Chat user picture"
+                      />
+                      <div
+                        id="chat-user-avatar-fallback"
+                        class="h-11 w-11 rounded-full bg-vloop-dark text-white flex items-center justify-center text-sm font-bold"
+                      >
+                        V
+                      </div>
+                      <div>
+                        <h3
+                          id="chat-user-name"
+                          class="text-lg font-bold text-vloop-dark"
+                        >
+                          Select a conversation
+                        </h3>
+                        <p
+                          id="chat-user-status"
+                          class="text-xs text-gray-500 mt-1"
+                        >
+                          Open a chat to see status
+                        </p>
+                      </div>
+                    </div>
+                    <p
+                      id="typing-indicator"
+                      class="text-xs text-vloop-base mt-1 h-4"
+                    ></p>
+                  </div>
+                  <div class="flex items-center gap-2">
+                    <button
+                      id="chat-search-button"
+                      type="button"
+                      onclick="toggleMessageSearch()"
+                      class="h-11 w-11 rounded-2xl border border-vloop-sage bg-white text-vloop-dark hover:bg-vloop-sage/10 transition flex items-center justify-center"
+                      aria-label="Search messages"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M21 21l-4.35-4.35m1.85-5.15a7 7 0 11-14 0 7 7 0 0114 0z"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      type="button"
+                      onclick="clearActiveConversation()"
+                      class="border border-vloop-sage px-3 py-2 rounded-xl text-sm font-semibold text-vloop-dark hover:bg-vloop-sage/10 transition"
+                    >
+                      Clear Chat
+                    </button>
+                  </div>
+                </div>
+                <div id="message-search-bar" class="hidden mt-2">
+                  <input
+                    id="message-search"
+                    type="text"
+                    placeholder="Search in chat"
+                    class="w-full rounded-2xl border border-vloop-sage bg-white px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-vloop-base/20"
+                  />
+                </div>
+              </div>
+
+              <div
+                id="chat-empty-state"
+                class="flex-1 flex items-center justify-center p-8 text-center text-gray-500"
+              >
+                <div>
+                  <p class="font-semibold text-vloop-dark mb-2">
+                    No chat selected
+                  </p>
+                  <p class="text-sm">
+                    Use the Chat button on a listing or choose a conversation
+                    from the left.
+                  </p>
+                </div>
+              </div>
+
+              <div
+                id="chat-thread"
+                class="hidden grid grid-rows-[minmax(0,1fr)_auto] min-h-0 h-full overflow-hidden"
+              >
+                <!-- Scrollable message timeline -->
+                <div
+                  id="chat-messages"
+                  class="min-h-0 overflow-y-auto overscroll-contain px-4 py-4 space-y-4 bg-[#F8FAF8] chat-scrollbar"
+                ></div>
+
+                <!-- Composer section -->
+                <div
+                  class="border-t border-vloop-sage/80 bg-white/95 p-3 backdrop-blur-sm"
+                >
+                  <div
+                    id="chat-reply-bar"
+                    class="hidden mb-3 rounded-2xl border border-vloop-sage/60 bg-vloop-cream/60 px-4 py-3"
+                  >
+                    <div class="flex items-start justify-between gap-3">
+                      <div class="min-w-0">
+                        <p
+                          class="text-xs font-semibold uppercase tracking-[0.2em] text-vloop-base"
+                        >
+                          Replying To
+                        </p>
+                        <p
+                          id="chat-reply-text"
+                          class="mt-1 truncate text-sm text-vloop-dark"
+                        ></p>
+                      </div>
+                      <button
+                        type="button"
+                        onclick="clearReplyTarget()"
+                        class="text-sm font-semibold text-gray-400 hover:text-vloop-dark"
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </div>
+                  <div
+                    id="chat-attachment-preview"
+                    class="hidden mb-3 rounded-2xl border border-vloop-sage/60 bg-vloop-cream/60 px-4 py-3"
+                  >
+                    <div class="flex items-center justify-between gap-3">
+                      <p
+                        id="chat-attachment-name"
+                        class="truncate text-sm font-medium text-vloop-dark"
+                      ></p>
+                      <button
+                        type="button"
+                        onclick="clearChatAttachment()"
+                        class="text-sm font-semibold text-gray-400 hover:text-vloop-dark"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                  <div class="relative">
+                    <div
+                      id="emoji-picker"
+                      class="hidden absolute bottom-[calc(100%+12px)] left-0 z-20 w-56 rounded-2xl border border-vloop-sage bg-white p-3 shadow-xl"
+                    >
+                      <div class="grid grid-cols-6 gap-2 text-xl">
+                        <button type="button" onclick="addEmoji('😀')">
+                          😀
+                        </button>
+                        <button type="button" onclick="addEmoji('😂')">
+                          😂
+                        </button>
+                        <button type="button" onclick="addEmoji('😍')">
+                          😍
+                        </button>
+                        <button type="button" onclick="addEmoji('🔥')">
+                          🔥
+                        </button>
+                        <button type="button" onclick="addEmoji('👍')">
+                          👍
+                        </button>
+                        <button type="button" onclick="addEmoji('🙏')">
+                          🙏
+                        </button>
+                        <button type="button" onclick="addEmoji('🎓')">
+                          🎓
+                        </button>
+                        <button type="button" onclick="addEmoji('📚')">
+                          📚
+                        </button>
+                        <button type="button" onclick="addEmoji('✅')">
+                          ✅
+                        </button>
+                        <button type="button" onclick="addEmoji('💬')">
+                          💬
+                        </button>
+                        <button type="button" onclick="addEmoji('✨')">
+                          ✨
+                        </button>
+                        <button type="button" onclick="addEmoji('🤝')">
+                          🤝
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <form
+                    id="chat-composer-form"
+                    autocomplete="off"
+                    onsubmit="if(event) { event.preventDefault(); event.stopPropagation(); } return false;"
+                    class="flex items-end gap-2 rounded-[28px] border border-vloop-sage/70 bg-[#F7FAF7] p-2 shadow-sm"
+                  >
+                    <input
+                      id="chat-attachment-input"
+                      type="file"
+                      class="hidden"
+                      accept="image/*,.pdf,.doc,.docx,.txt,.ppt,.pptx,.xls,.xlsx"
+                    />
+                    <button
+                      id="chat-emoji-toggle"
+                      type="button"
+                      onclick="toggleEmojiPicker()"
+                      class="h-12 w-12 rounded-2xl border border-vloop-sage bg-white text-xl hover:bg-vloop-sage/10 transition"
+                      aria-label="Toggle emoji picker"
+                    >
+                      😊
+                    </button>
+                    <button
+                      id="chat-attachment-button"
+                      type="button"
+                      onclick="openChatAttachmentPicker()"
+                      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-vloop-sage bg-white text-vloop-dark hover:bg-vloop-sage/10 transition"
+                      aria-label="Upload attachment"
+                    >
+                      +
+                    </button>
+                    <textarea
+                      id="chat-input"
+                      rows="1"
+                      placeholder="Type a message..."
+                      class="min-h-[48px] flex-1 resize-none overflow-y-auto bg-transparent px-3 py-3 text-sm leading-6 text-vloop-dark placeholder:text-gray-400 focus:outline-none chat-scrollbar"
+                    ></textarea>
+                    <button
+                      id="chat-send-button"
+                      type="submit"
+                      class="flex h-11 min-w-[48px] shrink-0 items-center justify-center rounded-2xl bg-vloop-base px-4 text-white hover:bg-vloop-deep transition font-semibold"
+                      aria-label="Send message"
+                    >
+                      Send
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </main>
+
+    <!-- Lightweight page notification for background/new message events -->
+    <div
+      id="chat-toast"
+      class="hidden fixed top-24 right-6 z-[400] bg-vloop-dark text-white px-4 py-3 rounded-2xl shadow-xl max-w-xs"
+    >
+      <p id="chat-toast-text" class="text-sm leading-5"></p>
+    </div>
+
+    <div
+      id="profile-modal"
+      class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[350] p-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-3xl shadow-2xl overflow-hidden"
+      >
+        <div
+          class="flex items-start justify-between gap-4 p-8 border-b border-vloop-sage/60 bg-[#F9FBF9]"
+        >
+          <div class="flex items-center gap-5">
+            <img
+              id="profile-avatar-image"
+              class="hidden h-20 w-20 rounded-full object-cover border border-vloop-sage"
+              alt="Profile picture"
+            />
+            <div
+              id="profile-avatar-fallback"
+              class="h-20 w-20 rounded-full bg-vloop-dark text-white flex items-center justify-center text-2xl font-bold"
+            >
+              V
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-[0.3em] text-vloop-base">
+                Profile
+              </p>
+              <h2
+                id="profile-name-heading"
+                class="text-2xl font-bold text-vloop-dark mt-2"
+              >
+                Your account
+              </h2>
+              <p
+                id="profile-email-heading"
+                class="text-sm text-gray-500 mt-1"
+              ></p>
+            </div>
+          </div>
+          <button
+            type="button"
+            onclick="closeProfileModal()"
+            class="text-3xl text-gray-400 hover:text-vloop-dark leading-none"
+          >
+            x
+          </button>
+        </div>
+
+        <div class="p-8 space-y-4 max-h-[75vh] overflow-y-auto chat-scrollbar">
+          <details
+            class="details-reset border border-vloop-sage/70 rounded-2xl bg-[#FCFDFC]"
+            open
+          >
+            <summary
+              class="cursor-pointer px-5 py-4 flex items-center justify-between font-bold text-vloop-dark"
+            >
+              <span>Account Details</span>
+              <span class="text-vloop-base text-sm">View</span>
+            </summary>
+            <form id="profile-form" class="px-5 pb-5 space-y-4">
+              <div class="flex flex-col sm:flex-row gap-4 items-start">
+                <div class="min-w-[190px] space-y-3">
+                  <div class="flex flex-wrap gap-2">
+                    <label
+                      class="inline-flex items-center gap-2 rounded-xl border border-vloop-sage bg-white px-4 py-2 text-sm font-semibold text-vloop-dark cursor-pointer hover:bg-vloop-sage/10 transition"
+                    >
+                      <input
+                        id="profile-picture-input"
+                        type="file"
+                        accept="image/*"
+                        class="hidden"
+                      />
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M4 16l4-4 4 4m4-8v12m4-8h-3m-4-4h.01M6 20h12a2 2 0 002-2V8a2 2 0 00-2-2h-3.172a2 2 0 01-1.414-.586l-.828-.828A2 2 0 0011.172 4H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                      <span>Upload Photo</span>
+                    </label>
+                    <button
+                      type="button"
+                      onclick="clearProfilePictureSelection()"
+                      class="inline-flex items-center gap-2 rounded-xl border border-vloop-sage/70 bg-white px-4 py-2 text-sm font-semibold text-gray-600 hover:bg-vloop-sage/10 hover:text-vloop-dark transition"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        class="h-4 w-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M6 18L18 6M6 6l12 12"
+                        />
+                      </svg>
+                      <span>Clear Photo</span>
+                    </button>
+                  </div>
+                  <p id="profile-picture-label" class="text-xs text-gray-500">
+                    No photo uploaded yet.
+                  </p>
+                </div>
+                <div class="grid sm:grid-cols-2 gap-4 w-full">
+                  <input
+                    id="profile-name"
+                    placeholder="Full name"
+                    class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none sm:col-span-2"
+                  />
+                  <input
+                    id="profile-phone-number"
+                    placeholder="Phone number (optional)"
+                    class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none"
+                  />
+                  <input
+                    id="profile-email"
+                    readonly
+                    class="border border-vloop-sage p-3 rounded-xl bg-gray-50 text-gray-500"
+                  />
+                  <input
+                    id="profile-member-since"
+                    readonly
+                    class="border border-vloop-sage p-3 rounded-xl bg-gray-50 text-gray-500 sm:col-span-2"
+                  />
+                </div>
+              </div>
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="bg-vloop-dark text-white px-5 py-3 rounded-xl font-semibold hover:bg-vloop-deep transition"
+                >
+                  Save Details
+                </button>
+              </div>
+            </form>
+          </details>
+
+          <details
+            class="details-reset border border-vloop-sage/70 rounded-2xl bg-[#FCFDFC]"
+          >
+            <summary
+              class="cursor-pointer px-5 py-4 flex items-center justify-between font-bold text-vloop-dark"
+            >
+              <span>Update Password</span>
+              <span class="text-vloop-base text-sm">View</span>
+            </summary>
+            <form id="profile-password-form" class="px-5 pb-5 grid gap-4">
+              <input
+                id="profile-current-password"
+                type="password"
+                placeholder="Current password"
+                class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none"
+              />
+              <input
+                id="profile-new-password"
+                type="password"
+                placeholder="New password"
+                class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none"
+              />
+              <input
+                id="profile-confirm-password"
+                type="password"
+                placeholder="Confirm new password"
+                class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none"
+              />
+              <div
+                id="profile-password-security-wrap"
+                class="hidden rounded-2xl border border-vloop-sage/60 bg-white p-4 space-y-3"
+              >
+                <div>
+                  <p
+                    class="text-xs font-semibold uppercase tracking-[0.2em] text-vloop-base"
+                  >
+                    Security Question
+                  </p>
+                  <p
+                    id="profile-password-security-question"
+                    class="mt-2 text-sm font-semibold text-vloop-dark"
+                  ></p>
+                </div>
+                <input
+                  id="profile-password-security-answer"
+                  type="password"
+                  placeholder="Answer security question"
+                  class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none"
+                />
+              </div>
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="bg-vloop-dark text-white px-5 py-3 rounded-xl font-semibold hover:bg-vloop-deep transition"
+                >
+                  Update Password
+                </button>
+              </div>
+            </form>
+          </details>
+
+          <details
+            class="details-reset border border-vloop-sage/70 rounded-2xl bg-[#FCFDFC]"
+          >
+            <summary
+              class="cursor-pointer px-5 py-4 flex items-center justify-between font-bold text-vloop-dark"
+            >
+              <span>Security Settings</span>
+              <span class="text-vloop-base text-sm">View</span>
+            </summary>
+            <form id="two-step-form" class="px-5 pb-5 space-y-4">
+              <div
+                class="rounded-2xl border border-vloop-sage/60 bg-white p-4 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
+              >
+                <div>
+                  <p class="font-semibold text-vloop-dark">
+                    2-Step Verification
+                  </p>
+                  <p class="text-sm text-gray-500 mt-1">
+                    Use a security question after password entry and before
+                    sensitive actions.
+                  </p>
+                </div>
+                <label
+                  class="inline-flex items-center gap-3 font-semibold text-vloop-dark"
+                >
+                  <span id="security-status-label" class="text-sm"
+                    >2-Step Verification Disabled</span
+                  >
+                  <input
+                    id="two-step-enabled"
+                    type="checkbox"
+                    class="h-5 w-5 accent-[#355245]"
+                  />
+                </label>
+              </div>
+              <div class="grid gap-4 md:grid-cols-[1fr_1fr]">
+                <div class="space-y-2">
+                  <label class="block text-sm font-semibold text-vloop-dark"
+                    >Security Question</label
+                  >
+                  <p class="text-xs text-gray-500">
+                    Choose from the saved list or create your own custom
+                    question.
+                  </p>
+                  <select
+                    id="security-question-select"
+                    class="border border-vloop-sage p-3 rounded-xl bg-white focus:ring-2 focus:ring-vloop-base focus:outline-none"
+                  >
+                    <option value="">Choose a question</option>
+                    <option value="What was the name of your first school?">
+                      What was the name of your first school?
+                    </option>
+                    <option value="What is your favorite book?">
+                      What is your favorite book?
+                    </option>
+                    <option value="What city were you born in?">
+                      What city were you born in?
+                    </option>
+                    <option
+                      value="What is the name of your childhood best friend?"
+                    >
+                      What is the name of your childhood best friend?
+                    </option>
+                    <option value="__custom__">Create my own question</option>
+                  </select>
+                </div>
+                <div
+                  id="security-question-custom-wrap"
+                  class="hidden space-y-2"
+                >
+                  <label class="block text-sm font-semibold text-vloop-dark"
+                    >Create Custom Question</label
+                  >
+                  <input
+                    id="security-question-custom"
+                    type="text"
+                    placeholder="Write your own question here"
+                    class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none"
+                  />
+                </div>
+              </div>
+              <div class="space-y-2">
+                <label class="block text-sm font-semibold text-vloop-dark"
+                  >Security Answer</label
+                >
+                <input
+                  id="security-answer-input"
+                  type="password"
+                  placeholder="Enter a new answer to save or update"
+                  class="border border-vloop-sage p-3 rounded-xl focus:ring-2 focus:ring-vloop-base focus:outline-none"
+                />
+                <p class="text-xs text-gray-500">
+                  Answers are normalized and stored as a secure hash. Use at
+                  least 3 characters.
+                </p>
+              </div>
+              <div
+                class="rounded-2xl border border-vloop-sage/60 bg-white px-4 py-3"
+              >
+                <p
+                  class="text-xs font-semibold uppercase tracking-[0.2em] text-vloop-base"
+                >
+                  Saved Question
+                </p>
+                <p
+                  id="security-current-question"
+                  class="mt-2 text-sm text-vloop-dark"
+                >
+                  No security question saved yet.
+                </p>
+              </div>
+              <div
+                id="two-step-disable-password-wrap"
+                class="hidden rounded-2xl border border-amber-200 bg-amber-50 px-4 py-4 space-y-3"
+              >
+                <div>
+                  <p
+                    class="text-xs font-semibold uppercase tracking-[0.2em] text-amber-600"
+                  >
+                    Password Confirmation
+                  </p>
+                  <p class="mt-2 text-sm text-amber-800">
+                    Enter your current password to disable 2-step verification.
+                  </p>
+                </div>
+                <input
+                  id="two-step-current-password"
+                  type="password"
+                  placeholder="Current password"
+                  class="border border-amber-200 p-3 rounded-xl bg-white focus:ring-2 focus:ring-amber-200 focus:outline-none"
+                />
+              </div>
+              <p
+                id="two-step-feedback"
+                class="hidden rounded-xl border px-4 py-3 text-sm font-semibold"
+              ></p>
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="bg-vloop-dark text-white px-5 py-3 rounded-xl font-semibold hover:bg-vloop-deep transition"
+                >
+                  Save Security Question
+                </button>
+              </div>
+            </form>
+          </details>
+
+          <details
+            class="details-reset border border-red-200 rounded-2xl bg-[#FFF7F7]"
+          >
+            <summary
+              class="cursor-pointer px-5 py-4 flex items-center justify-between font-bold text-red-700"
+            >
+              <span>Delete Account</span>
+              <span
+                class="inline-flex h-9 w-9 items-center justify-center rounded-full border border-red-200 bg-white text-red-500"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  class="h-4 w-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6M9 7V4a1 1 0 011-1h4a1 1 0 011 1v3m-7 0h8"
+                  />
+                </svg>
+              </span>
+            </summary>
+            <form id="delete-account-form" class="px-5 pb-5 grid gap-4">
+              <p class="text-sm text-red-600">
+                This permanently deletes your account, listings, and chat
+                ownership records.
+              </p>
+              <input
+                id="delete-account-password"
+                type="password"
+                placeholder="Current password"
+                class="border border-red-200 p-3 rounded-xl focus:ring-2 focus:ring-red-200 focus:outline-none"
+              />
+              <div
+                id="delete-account-security-wrap"
+                class="hidden rounded-2xl border border-red-200 bg-white p-4 space-y-3"
+              >
+                <div>
+                  <p
+                    class="text-xs font-semibold uppercase tracking-[0.2em] text-red-400"
+                  >
+                    Security Question
+                  </p>
+                  <p
+                    id="delete-account-security-question"
+                    class="mt-2 text-sm font-semibold text-red-700"
+                  ></p>
+                </div>
+                <input
+                  id="delete-account-security-answer"
+                  type="password"
+                  placeholder="Answer security question"
+                  class="border border-red-200 p-3 rounded-xl focus:ring-2 focus:ring-red-200 focus:outline-none"
+                />
+              </div>
+              <div class="flex justify-end">
+                <button
+                  type="submit"
+                  class="bg-red-600 text-white px-5 py-3 rounded-xl font-semibold hover:bg-red-700 transition"
+                >
+                  Delete My Account
+                </button>
+              </div>
+            </form>
+          </details>
+
+          <div class="pt-2 flex justify-end">
+            <button
+              type="button"
+              onclick="logout()"
+              class="bg-vloop-sage/20 text-vloop-dark px-5 py-3 rounded-xl hover:bg-vloop-sage/40 transition font-semibold"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="modal"
+      class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[100] p-4"
+    >
+      <div
+        class="bg-white p-8 rounded-3xl w-full max-w-lg max-h-[88vh] overflow-y-auto chat-scrollbar relative shadow-2xl animate-in zoom-in duration-300"
+      >
+        <button
+          type="button"
+          onclick="closeModal()"
+          class="absolute top-4 right-5 text-gray-400 hover:text-vloop-dark text-3xl transition"
+        >
+          x
+        </button>
+
+        <h2 id="modal-title" class="text-2xl font-bold mb-6 text-vloop-dark">
+          Post a New Item
+        </h2>
+
+        <form id="post-item-form" class="space-y-4" novalidate>
+          <input
+            id="title"
+            placeholder="What are you listing? (e.g. Physics Textbook)"
+            class="border border-vloop-sage p-3 w-full rounded-xl focus:ring-2 focus:ring-vloop-base"
+          />
+          <textarea
+            id="description"
+            placeholder="Describe the condition, edition, etc."
+            class="border border-vloop-sage p-3 w-full rounded-xl h-24 focus:ring-2 focus:ring-vloop-base"
+          ></textarea>
+          <div class="grid grid-cols-2 gap-4">
+            <select
+              id="type"
+              class="border border-vloop-sage p-3 w-full rounded-xl bg-white focus:ring-2 focus:ring-vloop-base"
+            >
+              <option>Sell</option>
+              <option>Lend</option>
+              <option>Request</option>
+            </select>
+            <select
+              id="category"
+              class="border border-vloop-sage p-3 w-full rounded-xl bg-white focus:ring-2 focus:ring-vloop-base"
+            >
+              <option>Textbook</option>
+              <option>Lab Equipment</option>
+              <option>Project Material</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="relative">
+            <input id="image" type="file" accept="image/*" class="hidden" />
+            <label
+              for="image"
+              class="border-2 border-dashed border-vloop-sage p-4 w-full rounded-xl flex flex-col items-center cursor-pointer hover:bg-vloop-sage/5 transition"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="h-8 w-8 text-vloop-base mb-2"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <span id="image-label" class="text-sm text-gray-500"
+                >Click to upload item photo</span
+              >
+            </label>
+          </div>
+
+          <div class="relative">
+            <span class="absolute left-3 top-3 text-gray-500 font-bold"
+              >Rs</span
+            >
+            <input
+              id="price"
+              type="number"
+              placeholder="Price (0 for free/lend)"
+              class="border border-vloop-sage p-3 w-full rounded-xl pl-8 focus:ring-2 focus:ring-vloop-base"
+            />
+          </div>
+
+          <button
+            type="submit"
+            id="post-btn"
+            class="bg-vloop-dark text-white w-full p-4 rounded-xl mt-8 font-bold hover:bg-vloop-deep transition shadow-lg relative overflow-hidden"
+          >
+            <span id="post-btn-text">List Item</span>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div
+      id="confirm-modal"
+      class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[900] p-4"
+    >
+      <div
+        class="bg-white p-8 rounded-3xl w-full max-w-sm relative shadow-2xl animate-in fade-in zoom-in duration-200"
+      >
+        <h2 class="text-xl font-bold mb-4 text-vloop-dark">Confirm Action</h2>
+        <p id="confirm-message" class="text-gray-600 mb-8">Are you sure?</p>
+        <div class="flex gap-4">
+          <button
+            type="button"
+            onclick="handleConfirm(false)"
+            class="flex-1 py-3 border border-vloop-sage rounded-xl font-bold text-gray-500 hover:bg-gray-50 transition"
+          >
+            Cancel
+          </button>
+          <button
+            type="button"
+            onclick="handleConfirm(true)"
+            class="flex-1 py-3 bg-red-500 text-white rounded-xl font-bold hover:bg-red-600 transition shadow-lg"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="forward-modal"
+      class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-[920] p-4"
+    >
+      <div
+        class="bg-white rounded-3xl w-full max-w-lg shadow-2xl overflow-hidden"
+      >
+        <div
+          class="flex items-start justify-between gap-4 p-6 border-b border-vloop-sage/60 bg-[#F9FBF9]"
+        >
+          <div>
+            <p class="text-xs uppercase tracking-[0.3em] text-vloop-base">
+              Forward Message
+            </p>
+            <h2 class="text-2xl font-bold text-vloop-dark mt-2">
+              Choose a recipient
+            </h2>
+            <p id="forward-preview-text" class="mt-2 text-sm text-gray-500"></p>
+          </div>
+          <button
+            type="button"
+            onclick="closeForwardModal()"
+            class="text-3xl text-gray-400 hover:text-vloop-dark leading-none"
+          >
+            x
+          </button>
+        </div>
+        <div class="p-6">
+          <input
+            id="forward-search"
+            type="text"
+            placeholder="Search users or conversations"
+            class="w-full rounded-2xl border border-vloop-sage bg-white px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-vloop-base/20"
+          />
+          <div
+            id="forward-recipient-list"
+            class="mt-4 max-h-[360px] overflow-y-auto chat-scrollbar rounded-2xl border border-vloop-sage/50 bg-[#FCFDFC]"
+          >
+            <div class="p-4 text-sm text-gray-500">
+              No users available to forward right now.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

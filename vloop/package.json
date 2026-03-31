@@ -1,0 +1,13 @@
+{
+  "name": "vloop",
+  "version": "1.0.0",
+  "description": "V-Loop is a secure, real-time marketplace exclusively for Vidya Academy students to buy, sell, and lend academic resources.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}

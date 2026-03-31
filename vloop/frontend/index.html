@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>V-Loop | Campus Marketplace</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --ink: #10211c;
+        --forest: #1f3a31;
+        --sage: #93ad9b;
+        --sage-soft: #d7e2d7;
+        --stone: #ebe7dc;
+        --ivory: #f8f4eb;
+        --ivory-strong: #fffdf7;
+        --text: #20302a;
+        --line: rgba(31, 58, 49, 0.12);
+        --shadow: rgba(25, 39, 33, 0.12);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: "Manrope", sans-serif;
+        color: var(--text);
+        background:
+          radial-gradient(
+            circle at top left,
+            rgba(147, 173, 155, 0.24),
+            transparent 30%
+          ),
+          radial-gradient(
+            circle at right 12%,
+            rgba(255, 253, 247, 0.85),
+            transparent 26%
+          ),
+          linear-gradient(180deg, #f7f2e8 0%, #edf1e7 46%, #e1e8de 100%);
+      }
+
+      .page-shell {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 28px 22px 64px;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 20px 28px;
+        margin-bottom: 8px;
+        border-radius: 28px;
+        background: rgba(248, 244, 235, 0.62);
+        border: 1px solid rgba(31, 58, 49, 0.08);
+        box-shadow: 0 18px 40px rgba(25, 39, 33, 0.08);
+        backdrop-filter: blur(14px);
+      }
+
+      .brand {
+        color: var(--forest);
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: -0.04em;
+      }
+
+      .nav-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav-link {
+        text-decoration: none;
+        padding: 12px 18px;
+        border-radius: 999px;
+        font-weight: 700;
+      }
+
+      .nav-link.primary {
+        color: var(--ivory-strong);
+        background: linear-gradient(135deg, #264238, var(--forest));
+        box-shadow: 0 16px 32px rgba(31, 58, 49, 0.18);
+      }
+
+      .nav-link.secondary {
+        color: var(--forest);
+        background: rgba(255, 253, 247, 0.7);
+        border: 1px solid var(--line);
+        backdrop-filter: blur(10px);
+      }
+
+      .hero {
+        display: flex;
+        align-items: center;
+        min-height: calc(100vh - 170px);
+        margin-top: 18px;
+      }
+
+      .hero-copy {
+        width: 100%;
+        padding: 56px 52px;
+        border-radius: 36px;
+        background:
+          linear-gradient(
+            180deg,
+            rgba(255, 253, 247, 0.92),
+            rgba(244, 240, 231, 0.9)
+          ),
+          linear-gradient(135deg, rgba(147, 173, 155, 0.08), transparent 60%);
+        border: 1px solid rgba(31, 58, 49, 0.08);
+        box-shadow: 0 28px 70px rgba(25, 39, 33, 0.12);
+        backdrop-filter: blur(12px);
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        padding: 8px 14px;
+        border-radius: 999px;
+        background: rgba(147, 173, 155, 0.2);
+        color: var(--forest);
+        font-size: 0.82rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+      }
+
+      .hero-copy h1 {
+        margin: 18px 0 16px;
+        max-width: 920px;
+        font-size: clamp(3.4rem, 9vw, 7.4rem);
+        line-height: 0.88;
+        letter-spacing: -0.06em;
+        color: var(--ink);
+      }
+
+      .hero-copy p {
+        max-width: 720px;
+        margin: 0;
+        font-size: 1.08rem;
+        line-height: 1.75;
+        color: rgba(32, 48, 42, 0.82);
+      }
+
+      .hero-buttons {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        margin-top: 28px;
+      }
+
+      .hero-button {
+        text-decoration: none;
+        padding: 14px 20px;
+        border-radius: 18px;
+        font-weight: 800;
+      }
+
+      .hero-button.primary {
+        color: var(--ivory-strong);
+        background: linear-gradient(135deg, #29453a, var(--forest));
+        box-shadow: 0 16px 30px rgba(31, 58, 49, 0.16);
+      }
+
+      .hero-button.secondary {
+        color: var(--forest);
+        background: rgba(147, 173, 155, 0.12);
+        border: 1px solid rgba(31, 58, 49, 0.12);
+      }
+
+      @media (max-width: 860px) {
+        .nav {
+          padding: 16px;
+        }
+
+        .hero {
+          min-height: auto;
+        }
+
+        .hero-copy {
+          padding: 36px 28px;
+        }
+
+        .hero-copy h1 {
+          font-size: clamp(2.8rem, 13vw, 4.5rem);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page-shell">
+      <nav class="nav">
+        <div class="brand">V-Loop</div>
+        <div class="nav-actions">
+          <a class="nav-link secondary" href="listings.html">Marketplace</a>
+          <a class="nav-link primary" href="login.html">Join Now</a>
+        </div>
+      </nav>
+
+      <section class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow">Campus Exchange</div>
+          <h1>Share. Trade. Loop it forward.</h1>
+          <p>
+            The exclusive student marketplace for Vidya Academy. Buy, sell, and
+            lend with classmates in one place.
+          </p>
+          <div class="hero-buttons">
+            <a class="hero-button primary" href="login.html">Get Started</a>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
