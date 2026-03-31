@@ -1,2 +1,2 @@
 # V-Loop
-Campus Resource Exchange Platform
+ A Campus Resource Exchange Platform
