@@ -2,14 +2,6 @@
 
 V-Loop is a secure, real-time marketplace exclusively for Vidya Academy students to buy, sell, and lend academic resources.
 
-## 🎨 Color Palette (Applied)
-- **Dark Forest:** `#1D2916` (Buttons, Nav)
-- **Deep Muted:** `#355245` (Hover states)
-- **Medium Sage:** `#6A8374` (Accents, Text)
-- **Light Sage:** `#AFC1B6` (Borders)
-- **Cream:** `#E3E5DB` (Backgrounds)
-
-## 🚀 Setup Instructions
 
 ### 1. Backend Setup
 1. Open terminal in `backend/`.
